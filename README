@@ -1,0 +1,12 @@
+Brett Alton <info@brettalton.com>
+http://brettalton.com
+
+This project is for multimedia-centric Ubuntu users.
+
+The bash script sets up a set of PPA and other repositories and installs some
+programs and libraries so the user can more easily view DVDs, videos online and
+play most common types of music files.
+
+See COPYING for more license details.
+
+Enjoy!
