@@ -261,7 +261,8 @@ gconftool-2 --type string --set /apps/metacity/general/titlebar_font "Patron Alt
 # /apps/rhythmbox
 gconftool-2 --type bool --set /apps/rhythmbox/plugins/jump-to-playing/active "true"
 #/apps/nautilus
-gconftool-2 --type string --set /apps/nautilus/preferences/show_icon_text "never"gconftool-2 --type bool --set  /apps/nautilus/desktop/computer_icon_visible "true"
+gconftool-2 --type string --set /apps/nautilus/preferences/show_icon_text "never"
+gconftool-2 --type bool --set  /apps/nautilus/desktop/computer_icon_visible "true"
 gconftool-2 --type bool --set  /apps/nautilus/desktop/home_icon_visible "true"
 gconftool-2 --type bool --set  /apps/nautilus/desktop/trash_icon_visible "true"
 gconftool-2 --type string --set /apps/nautilus/preferences/date_format "iso"
