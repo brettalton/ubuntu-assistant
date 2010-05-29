@@ -7,6 +7,12 @@ The bash script sets up a set of PPA and other repositories and installs some
 programs and libraries so the user can more easily view DVDs, videos online and
 play most common types of music files.
 
+Hit Alt + F2 and click "run in terminal" or open a terminal (Applications >
+Accessories > Terminal) and run this command so that the script uses the proper
+script for the version of Ubuntu you are using.
+
+chmod +x `lsb_release -cs`.sh; ./`lsb_release -cs`.sh
+
 See COPYING for more license details.
 
 Enjoy!

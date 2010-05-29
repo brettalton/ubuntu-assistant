@@ -1,5 +1,0 @@
-Hit Alt + F2 and click "run in terminal" or open a terminal (Applications >
-Accessories > Terminal) and run this command so that the script uses the proper
-script for the version of Ubuntu you are using.
-
-chmod +x `lsb_release -cs`.sh; ./`lsb_release -cs`.sh
