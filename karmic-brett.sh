@@ -80,6 +80,7 @@ conky \
 cups-pdf \
 faad \
 ffmpeg \
+firefox-notify \
 flashplugin-nonfree \
 flegita \
 gnome-backgrounds \
@@ -109,6 +110,7 @@ p7zip-full \
 parcellite \
 pidgin \
 pidgin-facebookchat \
+pidgin-libnotify \
 pidgin-themes \
 pitivi \
 secure-delete \
@@ -117,7 +119,7 @@ ssh \
 startupmanager \
 unrar \
 vim-nox \
-virtualbox-3.1 \
+virtualbox-3.2 \
 vlc \
 wine1.2 \
 gnome-colors \
@@ -242,15 +244,15 @@ gconftool-2 --type string --set /apps/metacity/general/theme "Shiki-Colors-Easy-
 gconftool-2 --type string --set /apps/metacity/general/titlebar_font "Patron Alt Medium 10"
 # /apps/rhythmbox
 gconftool-2 --type bool --set /apps/rhythmbox/plugins/jump-to-playing/active "true"
-# /apps/nautilus
-gconftool-2 --type bool --set  /apps/nautilus/desktop/computer_icon_visible "true"
+#/apps/nautilus
+gconftool-2 --type string --set /apps/nautilus/preferences/show_icon_text "never"gconftool-2 --type bool --set  /apps/nautilus/desktop/computer_icon_visible "true"
 gconftool-2 --type bool --set  /apps/nautilus/desktop/home_icon_visible "true"
 gconftool-2 --type bool --set  /apps/nautilus/desktop/trash_icon_visible "true"
 gconftool-2 --type string --set /apps/nautilus/preferences/date_format "iso"
-gconftool-2 --type string --set /apps/nautilus/preferences/desktop_font "Arial 8"
+gconftool-2 --type string --set /apps/nautilus/preferences/desktop_font "Arial 9"
 # /desktop/gnome
 gconftool-2 --type int --set /desktop/gnome/thumbnail_cache/maximum_age "60" # only allow thumbnails for 60 days
-gconftool-2 --type string --set /desktop/gnome/interface/font_name "Arial 8"
+gconftool-2 --type string --set /desktop/gnome/interface/font_name "Arial 9"
 gconftool-2 --type string --set /desktop/gnome/interface/gtk_color_scheme "fg_color:#000000000000
 bg_color:#ededececebeb
 text_color:#1a1a1a1a1a1a
@@ -266,3 +268,8 @@ gconftool-2 --type string --set /desktop/gnome/interface/icon_theme "elementary-
 
 # better font rendering
 echo 'true' > $HOME/.font.conf
+
+# TODO: this erases the user's entire cronjob -- not cool
+# remove thumbnails older than 7 days, every day
+# echo "0 2 * * * find ~/.thumbnails -type f -atime +7 -exec rm {} \;" > ~/.ubuntu_assistant.cron
+# crontab -u $USER ~/.ubuntu_assistant.cron

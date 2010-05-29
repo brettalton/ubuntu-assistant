@@ -42,20 +42,30 @@ PLAYDEB=playdeb_0.3-1~getdeb1_all.deb
 GETDEB=getdeb-repository_0.1-1~getdeb1_all.deb
 
 if [ ! -f $PLAYDEB ]; then
-	wget http://archive.getdeb.net/install_deb/$PLAYDEB
+	wget --tries=1 http://archive.getdeb.net/install_deb/$PLAYDEB
 fi
-
-if [ ! -f $GETDEB ]; then
-	wget http://archive.getdeb.net/install_deb/$GETDEB
-fi
-
-sudo dpkg -i $PLAYDEB $GETDEB
 
 if [ $? -eq 0 ]; then
-	rm $PLAYDEB $GETDEB
+	if [ ! -f $GETDEB ]; then
+		wget --tries=1 http://archive.getdeb.net/install_deb/$GETDEB
+	fi
+
+	if [ $? -eq 0 ]; then
+		sudo dpkg -i $PLAYDEB $GETDEB
+	
+		if [ $? -eq 0 ]; then
+			rm $PLAYDEB $GETDEB
+			echo ' -- installed playdeb/getdeb repositories'
+		else
+			echo ' !! could not install playdeb/getdeb repositories!'
+		fi
+	else
+		echo ' !! could not download getdeb repositories!'
+	fi
 else
-	echo ' !! could not install playdeb/getdeb repositories!'
+	echo ' !! could not download playdeb repositories!'
 fi
+
 
 # update
 sudo aptitude update &&
@@ -79,6 +89,7 @@ cups-pdf \
 emesene \
 faad \
 ffmpeg \
+firefox-notify \
 flashplugin-nonfree \
 gimp \
 gnome-backgrounds \
@@ -104,6 +115,7 @@ p7zip-full \
 parcellite \
 pidgin \
 pidgin-facebookchat \
+pidgin-libnotify \
 pidgin-themes \
 secure-delete \
 soundconverter \
@@ -219,7 +231,8 @@ gconftool-2 --type bool --set  /apps/gnome-screenshot/include_pointer "false" # 
 gconftool-2 --type string --set /apps/metacity/general/button_layout "menu:minimize,maximize,close" # move buttons BACK to the right
 # /apps/rhythmbox
 gconftool-2 --type bool --set /apps/rhythmbox/plugins/jump-to-playing/active "true"
-# /apps/nautilus
+#/apps/nautilus
+gconftool-2 --type string --set /apps/nautilus/preferences/show_icon_text "never"
 gconftool-2 --type bool --set  /apps/nautilus/desktop/computer_icon_visible "true"
 gconftool-2 --type bool --set  /apps/nautilus/desktop/home_icon_visible "true"
 gconftool-2 --type bool --set  /apps/nautilus/desktop/trash_icon_visible "true"
@@ -228,3 +241,8 @@ gconftool-2 --type int --set /desktop/gnome/thumbnail_cache/maximum_age "60" # o
 
 # better font rendering
 echo 'true' > $HOME/.font.conf
+
+# TODO: this erases the user's entire cronjob -- not cool
+# remove thumbnails older than 7 days, every day
+# echo "0 12 * * * find ~/.thumbnails -type f -atime +7 -exec rm {} \;" > ~/.ubuntu_assistant.cron
+# crontab -u $USER ~/.ubuntu_assistant.cron
