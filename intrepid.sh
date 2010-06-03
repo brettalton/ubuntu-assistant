@@ -112,6 +112,7 @@ arc-colors \
 shiki-colors &&
 
 # install elementary icons
+# elementaryart ppa not support in intrepid, must manually download
 cd $HOME
 if [ ! -f $HOME/elementary.tar.gz ]; then
 	wget http://staging.altonlabs.com/ubuntu_assistant/elementary.tar.gz
@@ -239,7 +240,3 @@ gconftool-2 --type string --set /desktop/gnome/interface/icon_theme "elementary-
 # better font rendering
 echo 'true' > $HOME/.font.conf
 
-# TODO: this erases the user's entire cronjob -- not cool
-# remove thumbnails older than 7 days, every day
-# echo "0 2 * * * find ~/.thumbnails -type f -atime +7 -exec rm {} \;" > ~/.ubuntu_assistant.cron
-# crontab -u $USER ~/.ubuntu_assistant.cron

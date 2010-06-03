@@ -19,10 +19,19 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-sudo add-apt-repository ppa:banshee-team # Banshee Media Player
-sudo add-apt-repository ppa:chromium-daily # Chromium Web Browser
-sudo add-apt-repository ppa:pidgin-developers # Pidgin Instant Messenger
-sudo add-apt-repository ppa:ubuntu-wine # Ubuntu Wine
+sudo add-apt-repository ppa:banshee-team/ppa # Banshee Media Player
+sudo add-apt-repository ppa:chromium-daily/ppa # Chromium Web Browser
+sudo add-apt-repository ppa:do-core/ppa # GNOME-Do (package not yet installed below)
+sudo add-apt-repository ppa:docky-core/ppa # Docky (package not yet installed below)
+sudo add-apt-repository ppa:doctormo/groundcontrol # Ground Control
+sudo add-apt-repositroy ppa:elementaryart/ppa # Elementary Art
+sudo add-apt-repository ppa:gstreamer-developers/ppa # PiTiVi Video Editor
+sudo add-apt-repository ppa:gtg/ppa # Getting Things GNOME! (package not yet installed below)
+sudo add-apt-repository ppa:lernid-devs/lernid-releases # Lernid
+sudo add-apt-repository ppa:pidgin-developers/ppa # Pidgin Instant Messenger
+sudo add-apt-repository ppa:team-xbmc/ppa # XBMC (package not yet installed below)
+sudo add-apt-repository ppa:ubuntu-wine/ppa # Ubuntu Wine
+sudo add-apt-repository ppa:zeitgeist/ppa # Zeitgeist / GNOME Activity Journal (package not yet installed below)
 
 # Medibuntu / https://help.ubuntu.com/community/Medibuntu
 sudo wget http://www.medibuntu.org/sources.list.d/karmic.list -O /etc/apt/sources.list.d/medibuntu.list
@@ -64,6 +73,9 @@ chromium-browser \
 clive \
 community-themes \
 cups-pdf \
+elementary-icon-theme \
+elementary-theme \
+elementary-wallpapers \
 emesene \
 faad \
 ffmpeg \
@@ -105,48 +117,28 @@ gnome-colors \
 arc-colors \
 shiki-colors &&
 
-# install elementary icons
+# add new Ubuntu logo in gnome-panel
 cd $HOME
-if [ ! -f $HOME/elementary.tar.gz ]; then
-	wget http://staging.altonlabs.com/ubuntu_assistant/elementary.tar.gz
-else
-	' -- elementary.tar.gz already exists, skipping download'
-fi
+if [ ! -f $HOME/start-here.png ]; then
+	wget http://staging.altonlabs.com/ubuntu_assistant/start-here.png
+	
+	# make sure the file downloaded properly
+	if [ $? -ne 0 ]; then
+		echo ' !! Could not download start-here.png!'
+	else
+		# delete old start-here.png, if it exists
+		if [ -f $HOME/.icons/elementary-monochrome/apps/24/start-here.png ]; then
+			rm -f $HOME/.icons/elementary-monochrome/apps/24/start-here.png
+		fi
+		
+		# create directory if it doesn't exist
+		if [ ! -d $HOME/.icons/elementary-monochrome/apps/24/ ]; then
+			mkdir -p $HOME/.icons/elementary-monochrome/apps/24/
+		fi
 
-if [ ! -f $HOME/elementary-monochrome.tar.gz ]; then
-	wget http://staging.altonlabs.com/ubuntu_assistant/elementary-monochrome.tar.gz
-else
-	' -- elementary-monochome.tar.gz already exists, skipping download'
-fi
-
-# make sure the file downloaded properly
-if [ $? -ne 0 ]; then
-	echo ' !! Could not download elementary icons!'
-fi
-
-# delete old elementary folder, if it exists
-if [ -d /usr/share/icons/elementary/ ]; then
-	sudo rm -r /usr/share/icons/elementary/
-fi
-
-# delete old elementary-monochrome folder, if it exists
-if [ -d /usr/share/icons/elementary-monochrome/ ]; then
-	sudo rm -r /usr/share/icons/elementary-monochrome/
-fi
-
-# extract downloaded files to /usr/share/icons/ directory
-if [ -f $HOME/elementary.tar.gz ]; then
-	sudo tar -xvzf elementary.tar.gz -C /usr/share/icons/ &&
-	rm $HOME/elementary.tar.gz
-else
-	echo ' !! elementary.tar.gz not found -- could not install!'
-fi
-
-if [ -f $HOME/elementary-monochrome.tar.gz ]; then
-	sudo tar -xvzf elementary-monochrome.tar.gz -C /usr/share/icons/ &&
-	rm $HOME/elementary-monochrome.tar.gz
-else
-	echo ' !! elementary-monocrhome.tar.gz not found -- could not install!'
+		cp -p $HOME/start-here.png $HOME/.icons/elementary-monochrome/apps/24/start-here.png
+		rm $HOME/start-here.png
+	fi
 fi
 
 
@@ -233,7 +225,3 @@ gconftool-2 --type string --set /desktop/gnome/interface/icon_theme "elementary-
 # better font rendering
 echo 'true' > $HOME/.font.conf
 
-# TODO: this erases the user's entire cronjob -- not cool
-# remove thumbnails older than 7 days, every day
-# echo "0 2 * * * find ~/.thumbnails -type f -atime +7 -exec rm {} \;" > ~/.ubuntu_assistant.cron
-# crontab -u $USER ~/.ubuntu_assistant.cron

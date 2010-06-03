@@ -24,6 +24,7 @@ sudo add-apt-repository ppa:chromium-daily/ppa # Chromium Web Browser
 sudo add-apt-repository ppa:do-core/ppa # GNOME-Do (package not yet installed below)
 sudo add-apt-repository ppa:docky-core/ppa # Docky (package not yet installed below)
 sudo add-apt-repository ppa:doctormo/groundcontrol # Ground Control
+sudo add-apt-repositroy ppa:elementaryart/ppa # Elementary Art
 sudo add-apt-repository ppa:gstreamer-developers/ppa # PiTiVi Video Editor
 sudo add-apt-repository ppa:gtg/ppa # Getting Things GNOME! (package not yet installed below)
 sudo add-apt-repository ppa:lernid-devs/lernid-releases # Lernid
@@ -78,6 +79,9 @@ clive \
 community-themes \
 conky \
 cups-pdf \
+elementary-icon-theme \
+elementary-theme \
+elementary-wallpapers \
 faad \
 ffmpeg \
 firefox-notify \
@@ -129,48 +133,29 @@ shiki-colors &&
 # freemind (Lucid to Karmic backport)
 wget http://mirrors.kernel.org/ubuntu/pool/universe/f/freemind/freemind_0.9.0~rc6+dfsg-1ubuntu1_all.deb http://mirrors.kernel.org/ubuntu/pool/universe/f/freemind/freemind-browser_0.9.0~rc6+dfsg-1ubuntu1_all.deb http://mirrors.kernel.org/ubuntu/pool/universe/f/freemind/freemind-doc_0.9.0~rc6+dfsg-1ubuntu1_all.deb http://mirrors.kernel.org/ubuntu/pool/universe/f/freemind/freemind-plugins-help_0.9.0~rc6+dfsg-1ubuntu1_all.deb http://mirrors.kernel.org/ubuntu/pool/universe/f/freemind/freemind-plugins-script_0.9.0~rc6+dfsg-1ubuntu1_all.deb http://mirrors.kernel.org/ubuntu/pool/universe/f/freemind/freemind-plugins-svg_0.9.0~rc6+dfsg-1ubuntu1_all.deb ; sudo aptitude install libcommons-lang-java libjgoodies-forms-java libjibx-java openjdk-6-jre simplyhtml javahelp2 groovy libbatik-java rhino ; sudo dpkg -i freemind*.deb ; rm freemind*.deb
 
-# install elementary icons
+
+# add new Ubuntu logo in gnome-panel
 cd $HOME
-if [ ! -f $HOME/elementary.tar.gz ]; then
-	wget http://staging.altonlabs.com/ubuntu_assistant/elementary.tar.gz
-else
-	' -- elementary.tar.gz already exists, skipping download'
-fi
+if [ ! -f $HOME/start-here.png ]; then
+	wget http://staging.altonlabs.com/ubuntu_assistant/start-here.png
+	
+	# make sure the file downloaded properly
+	if [ $? -ne 0 ]; then
+		echo ' !! Could not download start-here.png!'
+	else
+		# delete old start-here.png, if it exists
+		if [ -f $HOME/.icons/elementary-monochrome/apps/24/start-here.png ]; then
+			rm -f $HOME/.icons/elementary-monochrome/apps/24/start-here.png
+		fi
+		
+		# create directory if it doesn't exist
+		if [ ! -d $HOME/.icons/elementary-monochrome/apps/24/ ]; then
+			mkdir -p $HOME/.icons/elementary-monochrome/apps/24/
+		fi
 
-if [ ! -f $HOME/elementary-monochrome.tar.gz ]; then
-	wget http://staging.altonlabs.com/ubuntu_assistant/elementary-monochrome.tar.gz
-else
-	' -- elementary-monochome.tar.gz already exists, skipping download'
-fi
-
-# make sure the file downloaded properly
-if [ $? -ne 0 ]; then
-	echo ' !! Could not download elementary icons!'
-fi
-
-# delete old elementary folder, if it exists
-if [ -d /usr/share/icons/elementary/ ]; then
-	sudo rm -r /usr/share/icons/elementary/
-fi
-
-# delete old elementary-monochrome folder, if it exists
-if [ -d /usr/share/icons/elementary-monochrome/ ]; then
-	sudo rm -r /usr/share/icons/elementary-monochrome/
-fi
-
-# extract downloaded files to /usr/share/icons/ directory
-if [ -f $HOME/elementary.tar.gz ]; then
-	sudo tar -xvzf elementary.tar.gz -C /usr/share/icons/ &&
-	rm $HOME/elementary.tar.gz
-else
-	echo ' !! elementary.tar.gz not found -- could not install!'
-fi
-
-if [ -f $HOME/elementary-monochrome.tar.gz ]; then
-	sudo tar -xvzf elementary-monochrome.tar.gz -C /usr/share/icons/ &&
-	rm $HOME/elementary-monochrome.tar.gz
-else
-	echo ' !! elementary-monocrhome.tar.gz not found -- could not install!'
+		cp -p $HOME/start-here.png $HOME/.icons/elementary-monochrome/apps/24/start-here.png
+		rm $HOME/start-here.png
+	fi
 fi
 
 
@@ -270,7 +255,3 @@ gconftool-2 --type string --set /desktop/gnome/interface/icon_theme "elementary-
 # better font rendering
 echo 'true' > $HOME/.font.conf
 
-# TODO: this erases the user's entire cronjob -- not cool
-# remove thumbnails older than 7 days, every day
-# echo "0 2 * * * find ~/.thumbnails -type f -atime +7 -exec rm {} \;" > ~/.ubuntu_assistant.cron
-# crontab -u $USER ~/.ubuntu_assistant.cron
