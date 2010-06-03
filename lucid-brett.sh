@@ -4,7 +4,7 @@
 # Install requested and required programs and libraries for a better
 #     desktop experience
 # Copyright (C) 2007-2010  Brett Alton <brett.jr.alton@gmail.com>
-# Last edited 2010-05-08
+# Last edited 2010-06-03
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,28 +19,33 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-sudo add-apt-repository ppa:banshee-team/ppa # Banshee Media Player
-sudo add-apt-repository ppa:chromium-daily/ppa # Chromium Web Browser
-sudo add-apt-repository ppa:docky-core/ppa # Docky (package not yet installed below)
-sudo add-apt-repository ppa:doctormo/groundcontrol # Ground Control
-sudo add-apt-repositroy ppa:elementaryart/ppa # Elementary Art
-sudo add-apt-repository ppa:gstreamer-developers/ppa # PiTiVi Video Editor
-sudo add-apt-repository ppa:lernid-devs/lernid-releases # Lernid
-sudo add-apt-repository ppa:openshot.developers/ppa # Openshot
-sudo add-apt-repository ppa:pidgin-developers/ppa # Pidgin Instant Messenger
-sudo add-apt-repositroy ppa:rabbitvcs/ppa # RabbitVCS
-sudo add-apt-repository ppa:savoirfairelinux # SFLPhone
-sudo add-apt-repository ppa:team-xbmc/ppa # XBMC (package not yet installed below)
-sudo add-apt-repository ppa:tualatrix/ppa # Ubuntu Tweak
-sudo add-apt-repository ppa:ubuntu-wine/ppa # Ubuntu Wine
-sudo add-apt-repository ppa:zeitgeist/ppa # Zeitgeist / GNOME Activity Journal (package not yet installed below)
+# Depends on Zenity
+if [ ! -f /usr/bin/zenity ]; then
+	gksu aptitude install zenity
+fi
+
+gksu add-apt-repository ppa:banshee-team/ppa # Banshee Media Player
+gksu add-apt-repository ppa:chromium-daily/ppa # Chromium Web Browser
+gksu add-apt-repository ppa:docky-core/ppa # Docky (package not yet installed below)
+gksu add-apt-repository ppa:doctormo/groundcontrol # Ground Control
+gksu add-apt-repository ppa:elementaryart/ppa # Elementary Art
+gksu add-apt-repository ppa:gstreamer-developers/ppa # PiTiVi Video Editor
+gksu add-apt-repository ppa:lernid-devs/lernid-releases # Lernid
+gksu add-apt-repository ppa:openshot.developers/ppa # Openshot
+gksu add-apt-repository ppa:pidgin-developers/ppa # Pidgin Instant Messenger
+gksu add-apt-repository ppa:rabbitvcs/ppa # RabbitVCS
+gksu add-apt-repository ppa:savoirfairelinux # SFLPhone
+gksu add-apt-repository ppa:team-xbmc/ppa # XBMC (package not yet installed below)
+gksu add-apt-repository ppa:tualatrix/ppa # Ubuntu Tweak
+gksu add-apt-repository ppa:ubuntu-wine/ppa # Ubuntu Wine
+gksu add-apt-repository ppa:zeitgeist/ppa # Zeitgeist / GNOME Activity Journal (package not yet installed below)
 
 # Medibuntu / https://help.ubuntu.com/community/Medibuntu
-sudo wget --output-document=/etc/apt/sources.list.d/medibuntu.list http://www.medibuntu.org/sources.list.d/$(lsb_release -cs).list && sudo apt-get --quiet update && sudo apt-get --yes --quiet --allow-unauthenticated install medibuntu-keyring && sudo apt-get --quiet update
+gksu wget --output-document=/etc/apt/sources.list.d/medibuntu.list http://www.medibuntu.org/sources.list.d/$(lsb_release -cs).list && gksu apt-get --quiet update && gksu apt-get --yes --quiet --allow-unauthenticated install medibuntu-keyring && gksu apt-get --quiet update
 
 # VirtualBox / http://www.virtualbox.org/wiki/Linux_Downloads
-#echo 'deb http://download.virtualbox.org/virtualbox/debian lucid non-free' | sudo tee /etc/apt/sources.list.d/virtualbox.list
-#wget -q http://download.virtualbox.org/virtualbox/debian/sun_vbox.asc -O- | sudo apt-key add -
+#echo 'deb http://download.virtualbox.org/virtualbox/debian lucid non-free' | gksu tee /etc/apt/sources.list.d/virtualbox.list
+#wget -q http://download.virtualbox.org/virtualbox/debian/sun_vbox.asc -O- | gksu apt-key add -
 
 # GetDeb / PlayDeb
 PLAYDEB=playdeb_0.3-1~getdeb1_all.deb
@@ -56,7 +61,7 @@ if [ $? -eq 0 ]; then
 	fi
 
 	if [ $? -eq 0 ]; then
-		sudo dpkg -i $PLAYDEB $GETDEB
+		gksu dpkg -i $PLAYDEB $GETDEB
 	
 		if [ $? -eq 0 ]; then
 			rm $PLAYDEB $GETDEB
@@ -72,14 +77,14 @@ else
 fi
 
 # update
-sudo aptitude update
+gksu aptitude update
 
 # upgrade
-sudo aptitude upgrade
+gksu aptitude upgrade
 
 # took out virtualbox-3.2 for now
 # install
-sudo aptitude install \
+gksu aptitude install \
 abiword \
 agave \
 audacity \
@@ -238,10 +243,7 @@ gconftool-2 --type string --set /apps/gedit-2/preferences/editor/colors/scheme "
 gconftool-2 --type string --set /apps/gedit-2/preferences/editor/wrap_mode/wrap_mode "GTK_WRAP_WORD" # text wrap on
 # /apps/gnome-screenshot
 gconftool-2 --type bool --set  /apps/gnome-screenshot/include_pointer "false" # turn off mouse pointer in screenshots
-# /apps/metacity
-gconftool-2 --type string --set /apps/metacity/general/button_layout "menu:minimize,maximize,close" # move buttons BACK to the right
-gconftool-2 --type string --set /apps/metacity/general/theme "Shiki-Colors-Easy-Metacity"
-gconftool-2 --type string --set /apps/metacity/general/titlebar_font "Patron Alt Medium 10"
+
 # /apps/rhythmbox
 gconftool-2 --type bool --set /apps/rhythmbox/plugins/jump-to-playing/active "true"
 #/apps/nautilus
@@ -250,11 +252,19 @@ gconftool-2 --type bool --set  /apps/nautilus/desktop/computer_icon_visible "tru
 gconftool-2 --type bool --set  /apps/nautilus/desktop/home_icon_visible "true"
 gconftool-2 --type bool --set  /apps/nautilus/desktop/trash_icon_visible "true"
 gconftool-2 --type string --set /apps/nautilus/preferences/date_format "iso"
-gconftool-2 --type string --set /apps/nautilus/preferences/desktop_font "Arial 9"
+
 # /desktop/gnome
-gconftool-2 --type int --set /desktop/gnome/thumbnail_cache/maximum_age "60" # only allow thumbnails for 60 days
-gconftool-2 --type string --set /desktop/gnome/interface/font_name "Arial 9"
-gconftool-2 --type string --set /desktop/gnome/interface/gtk_color_scheme "fg_color:#000000000000
+gconftool-2 --type int --set /desktop/gnome/thumbnail_cache/maximum_age "7" # only allow thumbnails for 7 days
+
+# theme
+zenity --question --text "Do you want to use the custom Ubuntu Assistant theme?" --title="Ubuntu Assistant"
+if [ $? -eq 0 ]; then
+	gconftool-2 --type string --set /apps/metacity/general/button_layout "menu:minimize,maximize,close" # move buttons BACK to the right
+	gconftool-2 --type string --set /apps/metacity/general/theme "Shiki-Colors-Easy-Metacity"
+	gconftool-2 --type string --set /apps/metacity/general/titlebar_font "Patron Alt Medium 10"
+	gconftool-2 --type string --set /apps/nautilus/preferences/desktop_font "Arial 9"
+	gconftool-2 --type string --set /desktop/gnome/interface/font_name "Arial 9"
+	gconftool-2 --type string --set /desktop/gnome/interface/gtk_color_scheme "fg_color:#000000000000
 bg_color:#ededececebeb
 text_color:#1a1a1a1a1a1a
 base_color:#ffffffffffff
@@ -262,14 +272,15 @@ selected_fg_color:#ffffffffffff
 selected_bg_color:#5b5b8080a7a7
 tooltip_fg_color:#000000000000
 tooltip_bg_color:#f5f5f5f5b5b5"
-gconftool-2 --type string --set /desktop/gnome/interface/gtk_theme "Clearlooks"
-gconftool-2 --type string --set /desktop/gnome/interface/icon_theme "elementary-monochrome"
-
-# gconftool-2 --type string --set /apps/nautilus/preferences/navigation_window_saved_geometry 639x423+-2+292
+	gconftool-2 --type string --set /desktop/gnome/interface/gtk_theme "Clearlooks"
+	gconftool-2 --type string --set /desktop/gnome/interface/icon_theme "elementary-monochrome"
+fi
 
 # better font rendering
 echo 'true' > $HOME/.font.conf
 
-# sudo aptitude install apache2 libapache2-mod-php5 mysql-server php5 php5-mysql phpmyadmin
-# sudo rm -r /var/www
-# sudo ln -s /home/brett/www /var/www
+# gconftool-2 --type string --set /apps/nautilus/preferences/navigation_window_saved_geometry 639x423+-2+292
+
+# gksu aptitude install apache2 libapache2-mod-php5 mysql-server php5 php5-mysql phpmyadmin
+# gksu rm -r /var/www
+# gksu ln -s /home/brett/www /var/www

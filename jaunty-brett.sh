@@ -4,7 +4,7 @@
 # Install requested and required programs and libraries for a better
 #     desktop experience
 # Copyright (C) 2007-2010  Brett Alton <brett.jr.alton@gmail.com>
-# Last edited 2010-05-10
+# Last edited 2010-06-03
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -19,37 +19,42 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# Depends on Zenity
+if [ ! -f /usr/bin/zenity ]; then
+	gksu aptitude install zenity
+fi
+
 
 # Banshee / https://launchpad.net/~banshee-team/+archive/ppa
-echo 'deb http://ppa.launchpad.net/banshee-team/ppa/ubuntu jaunty main' | sudo tee -a /etc/apt/sources.list.d/launchpad.list
-sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 9D2C2E0A3C88DD807EC787D74874D3686E80C6B7
+echo 'deb http://ppa.launchpad.net/banshee-team/ppa/ubuntu jaunty main' | gksu tee -a /etc/apt/sources.list.d/launchpad.list
+gksu apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 9D2C2E0A3C88DD807EC787D74874D3686E80C6B7
 
 # Chromium Browser / https://launchpad.net/~chromium-daily/+archive/ppa
-echo 'deb http://ppa.launchpad.net/chromium-daily/ppa/ubuntu jaunty main' | sudo tee -a /etc/apt/sources.list.d/launchpad.list
-sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com fbef0d696de1c72ba5a835fe5a9bf3bb4e5e17b5
+echo 'deb http://ppa.launchpad.net/chromium-daily/ppa/ubuntu jaunty main' | gksu tee -a /etc/apt/sources.list.d/launchpad.list
+gksu apt-key adv --recv-keys --keyserver keyserver.ubuntu.com fbef0d696de1c72ba5a835fe5a9bf3bb4e5e17b5
 
 # GNOME-Colors / https://launchpad.net/~gnome-colors-packagers/+archive/ppa
-echo 'deb http://ppa.launchpad.net/gnome-colors-packagers/ppa/ubuntu jaunty main' | sudo tee -a /etc/apt/sources.list.d/launchpad.list
-sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 41c2359b9c2f88f0d47040322d79f61be8d31a30
+echo 'deb http://ppa.launchpad.net/gnome-colors-packagers/ppa/ubuntu jaunty main' | gksu tee -a /etc/apt/sources.list.d/launchpad.list
+gksu apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 41c2359b9c2f88f0d47040322d79f61be8d31a30
 
 # Medibuntu / https://help.ubuntu.com/community/Medibuntu
-sudo wget http://www.medibuntu.org/sources.list.d/jaunty.list -O /etc/apt/sources.list.d/medibuntu.list
+gksu wget http://www.medibuntu.org/sources.list.d/jaunty.list -O /etc/apt/sources.list.d/medibuntu.list
 
 # Pidgin / https://launchpad.net/~pidgin-developers/+archive/ppa
-echo 'deb http://ppa.launchpad.net/pidgin-developers/ppa/ubuntu jaunty main' | sudo tee -a /etc/apt/sources.list.d/launchpad.list
-sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 67265eb522bdd6b1c69e66ed7fb8bee0a1f196a8
+echo 'deb http://ppa.launchpad.net/pidgin-developers/ppa/ubuntu jaunty main' | gksu tee -a /etc/apt/sources.list.d/launchpad.list
+gksu apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 67265eb522bdd6b1c69e66ed7fb8bee0a1f196a8
 
 # Themes / https://launchpad.net/~bisigi/+archive/ppa
-echo 'deb http://ppa.launchpad.net/bisigi/ppa/ubuntu jaunty main' | sudo tee -a /etc/apt/sources.list.d/launchpad.list
-sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 1781bd45c4c3275a34bb6aec6e871c4a881574de
+echo 'deb http://ppa.launchpad.net/bisigi/ppa/ubuntu jaunty main' | gksu tee -a /etc/apt/sources.list.d/launchpad.list
+gksu apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 1781bd45c4c3275a34bb6aec6e871c4a881574de
 
 # VirtualBox / http://www.virtualbox.org/wiki/Linux_Downloads
-echo 'deb http://download.virtualbox.org/virtualbox/debian jaunty non-free' | sudo tee /etc/apt/sources.list.d/virtualbox.list
-wget -q http://download.virtualbox.org/virtualbox/debian/sun_vbox.asc -O- | sudo apt-key add -
+echo 'deb http://download.virtualbox.org/virtualbox/debian jaunty non-free' | gksu tee /etc/apt/sources.list.d/virtualbox.list
+wget -q http://download.virtualbox.org/virtualbox/debian/sun_vbox.asc -O- | gksu apt-key add -
 
 # Wine / https://launchpad.net/~ubuntu-wine/+archive/ppa
-echo 'deb http://ppa.launchpad.net/ubuntu-wine/ppa/ubuntu jaunty main' | sudo tee -a /etc/apt/sources.list.d/launchpad.list
-sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 883e8688397576b6c509df495a9a06aef9cb8db0
+echo 'deb http://ppa.launchpad.net/ubuntu-wine/ppa/ubuntu jaunty main' | gksu tee -a /etc/apt/sources.list.d/launchpad.list
+gksu apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 883e8688397576b6c509df495a9a06aef9cb8db0
 
 # GetDeb / PlayDeb
 PLAYDEB=playdeb_0.3-1~getdeb1_all.deb
@@ -63,7 +68,7 @@ if [ ! -f $GETDEB ]; then
 	wget http://archive.getdeb.net/install_deb/$GETDEB
 fi
 
-sudo dpkg -i $PLAYDEB $GETDEB
+gksu dpkg -i $PLAYDEB $GETDEB
 
 if [ $? -eq 0 ]; then
 	rm $PLAYDEB $GETDEB
@@ -72,13 +77,13 @@ else
 fi
 
 # update
-sudo aptitude update &&
+gksu aptitude update &&
 
 # upgrade
-sudo aptitude upgrade &&
+gksu aptitude upgrade &&
 
 # install
-sudo aptitude install \
+gksu aptitude install \
 abiword \
 agave \
 audacity \
@@ -223,10 +228,7 @@ gconftool-2 --type string --set /apps/gedit-2/preferences/editor/colors/scheme "
 gconftool-2 --type string --set /apps/gedit-2/preferences/editor/wrap_mode/wrap_mode "GTK_WRAP_WORD" # text wrap on
 # /apps/gnome-screenshot
 gconftool-2 --type bool --set  /apps/gnome-screenshot/include_pointer "false" # turn off mouse pointer in screenshots
-# /apps/metacity
-gconftool-2 --type string --set /apps/metacity/general/button_layout "menu:minimize,maximize,close" # move buttons BACK to the right
-gconftool-2 --type string --set /apps/metacity/general/theme "Shiki-Colors-Easy-Metacity"
-gconftool-2 --type string --set /apps/metacity/general/titlebar_font "Patron Alt Medium 10"
+
 # /apps/rhythmbox
 gconftool-2 --type bool --set /apps/rhythmbox/plugins/jump-to-playing/active "true"
 #/apps/nautilus
@@ -235,11 +237,19 @@ gconftool-2 --type bool --set  /apps/nautilus/desktop/computer_icon_visible "tru
 gconftool-2 --type bool --set  /apps/nautilus/desktop/home_icon_visible "true"
 gconftool-2 --type bool --set  /apps/nautilus/desktop/trash_icon_visible "true"
 gconftool-2 --type string --set /apps/nautilus/preferences/date_format "iso"
-gconftool-2 --type string --set /apps/nautilus/preferences/desktop_font "Arial 9"
+
 # /desktop/gnome
-gconftool-2 --type int --set /desktop/gnome/thumbnail_cache/maximum_age "60" # only allow thumbnails for 60 days
-gconftool-2 --type string --set /desktop/gnome/interface/font_name "Arial 9"
-gconftool-2 --type string --set /desktop/gnome/interface/gtk_color_scheme "fg_color:#000000000000
+gconftool-2 --type int --set /desktop/gnome/thumbnail_cache/maximum_age "7" # only allow thumbnails for 7 days
+
+# theme
+zenity --question --text "Do you want to use the custom Ubuntu Assistant theme?" --title="Ubuntu Assistant"
+if [ $? -eq 0 ]; then
+	gconftool-2 --type string --set /apps/metacity/general/button_layout "menu:minimize,maximize,close" # move buttons BACK to the right
+	gconftool-2 --type string --set /apps/metacity/general/theme "Shiki-Colors-Easy-Metacity"
+	gconftool-2 --type string --set /apps/metacity/general/titlebar_font "Patron Alt Medium 10"
+	gconftool-2 --type string --set /apps/nautilus/preferences/desktop_font "Arial 9"
+	gconftool-2 --type string --set /desktop/gnome/interface/font_name "Arial 9"
+	gconftool-2 --type string --set /desktop/gnome/interface/gtk_color_scheme "fg_color:#000000000000
 bg_color:#ededececebeb
 text_color:#1a1a1a1a1a1a
 base_color:#ffffffffffff
@@ -247,8 +257,9 @@ selected_fg_color:#ffffffffffff
 selected_bg_color:#5b5b8080a7a7
 tooltip_fg_color:#000000000000
 tooltip_bg_color:#f5f5f5f5b5b5"
-gconftool-2 --type string --set /desktop/gnome/interface/gtk_theme "Clearlooks"
-gconftool-2 --type string --set /desktop/gnome/interface/icon_theme "elementary-monochrome"
+	gconftool-2 --type string --set /desktop/gnome/interface/gtk_theme "Clearlooks"
+	gconftool-2 --type string --set /desktop/gnome/interface/icon_theme "elementary-monochrome"
+fi
 
 # gconftool-2 --type string --set /apps/nautilus/preferences/navigation_window_saved_geometry 639x423+-2+292
 
