@@ -4,7 +4,7 @@
 # Install requested and required programs and libraries for a better
 #     desktop experience
 # Copyright (C) 2007-2010  Brett Alton <brett.jr.alton@gmail.com>
-# Last edited 2010-06-03
+# Last edited 2010-06-11
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -39,7 +39,7 @@ gksu add-apt-repository ppa:ubuntu-wine/ppa # Ubuntu Wine
 gksu add-apt-repository ppa:zeitgeist/ppa # Zeitgeist / GNOME Activity Journal (package not yet installed below)
 
 # Medibuntu / https://help.ubuntu.com/community/Medibuntu
-gksu wget http://www.medibuntu.org/sources.list.d/karmic.list -O /etc/apt/sources.list.d/medibuntu.list
+sudo wget --output-document=/etc/apt/sources.list.d/medibuntu.list http://www.medibuntu.org/sources.list.d/$(lsb_release -cs).list && sudo apt-get --quiet update && sudo apt-get --yes --quiet --allow-unauthenticated install medibuntu-keyring && sudo apt-get --quiet update
 
 # VirtualBox / http://www.virtualbox.org/wiki/Linux_Downloads
 echo 'deb http://download.virtualbox.org/virtualbox/debian karmic non-free' | gksu tee /etc/apt/sources.list.d/virtualbox.list
@@ -69,10 +69,10 @@ fi
 gksu aptitude update &&
 
 # upgrade
-gksu aptitude upgrade &&
+sudo aptitude safe-upgrade &&
 
 # install
-gksu aptitude install \
+sudo aptitude install \
 abiword \
 abiword-plugins \
 agave \
@@ -136,7 +136,7 @@ arc-colors \
 shiki-colors &&
 
 # freemind (Lucid to Karmic backport)
-wget http://mirrors.kernel.org/ubuntu/pool/universe/f/freemind/freemind_0.9.0~rc6+dfsg-1ubuntu1_all.deb http://mirrors.kernel.org/ubuntu/pool/universe/f/freemind/freemind-browser_0.9.0~rc6+dfsg-1ubuntu1_all.deb http://mirrors.kernel.org/ubuntu/pool/universe/f/freemind/freemind-doc_0.9.0~rc6+dfsg-1ubuntu1_all.deb http://mirrors.kernel.org/ubuntu/pool/universe/f/freemind/freemind-plugins-help_0.9.0~rc6+dfsg-1ubuntu1_all.deb http://mirrors.kernel.org/ubuntu/pool/universe/f/freemind/freemind-plugins-script_0.9.0~rc6+dfsg-1ubuntu1_all.deb http://mirrors.kernel.org/ubuntu/pool/universe/f/freemind/freemind-plugins-svg_0.9.0~rc6+dfsg-1ubuntu1_all.deb ; gksu aptitude install libcommons-lang-java libjgoodies-forms-java libjibx-java openjdk-6-jre simplyhtml javahelp2 groovy libbatik-java rhino ; gksu dpkg -i freemind*.deb ; rm freemind*.deb
+wget http://mirrors.kernel.org/ubuntu/pool/universe/f/freemind/freemind_0.9.0~rc6+dfsg-1ubuntu1_all.deb http://mirrors.kernel.org/ubuntu/pool/universe/f/freemind/freemind-browser_0.9.0~rc6+dfsg-1ubuntu1_all.deb http://mirrors.kernel.org/ubuntu/pool/universe/f/freemind/freemind-doc_0.9.0~rc6+dfsg-1ubuntu1_all.deb http://mirrors.kernel.org/ubuntu/pool/universe/f/freemind/freemind-plugins-help_0.9.0~rc6+dfsg-1ubuntu1_all.deb http://mirrors.kernel.org/ubuntu/pool/universe/f/freemind/freemind-plugins-script_0.9.0~rc6+dfsg-1ubuntu1_all.deb http://mirrors.kernel.org/ubuntu/pool/universe/f/freemind/freemind-plugins-svg_0.9.0~rc6+dfsg-1ubuntu1_all.deb ; sudo aptitude install libcommons-lang-java libjgoodies-forms-java libjibx-java openjdk-6-jre simplyhtml javahelp2 groovy libbatik-java rhino ; gksu dpkg -i freemind*.deb ; rm freemind*.deb
 
 
 # add new Ubuntu logo in gnome-panel

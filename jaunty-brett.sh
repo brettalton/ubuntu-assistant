@@ -4,7 +4,7 @@
 # Install requested and required programs and libraries for a better
 #     desktop experience
 # Copyright (C) 2007-2010  Brett Alton <brett.jr.alton@gmail.com>
-# Last edited 2010-06-03
+# Last edited 2010-06-11
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -38,7 +38,7 @@ echo 'deb http://ppa.launchpad.net/gnome-colors-packagers/ppa/ubuntu jaunty main
 gksu apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 41c2359b9c2f88f0d47040322d79f61be8d31a30
 
 # Medibuntu / https://help.ubuntu.com/community/Medibuntu
-gksu wget http://www.medibuntu.org/sources.list.d/jaunty.list -O /etc/apt/sources.list.d/medibuntu.list
+sudo wget --output-document=/etc/apt/sources.list.d/medibuntu.list http://www.medibuntu.org/sources.list.d/$(lsb_release -cs).list && sudo apt-get --quiet update && sudo apt-get --yes --quiet --allow-unauthenticated install medibuntu-keyring && sudo apt-get --quiet update
 
 # Pidgin / https://launchpad.net/~pidgin-developers/+archive/ppa
 echo 'deb http://ppa.launchpad.net/pidgin-developers/ppa/ubuntu jaunty main' | gksu tee -a /etc/apt/sources.list.d/launchpad.list
@@ -77,13 +77,13 @@ else
 fi
 
 # update
-gksu aptitude update &&
+gksu aptitude update
 
 # upgrade
-gksu aptitude upgrade &&
+sudo aptitude safe-upgrade
 
 # install
-gksu aptitude install \
+sudo aptitude install \
 abiword \
 agave \
 audacity \
@@ -137,7 +137,7 @@ vlc \
 wine \
 gnome-colors \
 arc-colors \
-shiki-colors &&
+shiki-colors
 
 # add new Ubuntu logo in gnome-panel
 cd $HOME

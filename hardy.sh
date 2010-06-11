@@ -4,7 +4,7 @@
 # Install requested and required programs and libraries for a better
 #     desktop experience
 # Copyright (C) 2007-2010  Brett Alton <brett.jr.alton@gmail.com>
-# Last edited 2010-06-03
+# Last edited 2010-06-11
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -33,7 +33,7 @@ echo 'deb http://ppa.launchpad.net/gnome-colors-packagers/ppa/ubuntu hardy main'
 gksu apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 41c2359b9c2f88f0d47040322d79f61be8d31a30
 
 # Medibuntu / https://help.ubuntu.com/community/Medibuntu
-gksu wget http://www.medibuntu.org/sources.list.d/hardy.list -O /etc/apt/sources.list.d/medibuntu.list
+sudo wget --output-document=/etc/apt/sources.list.d/medibuntu.list http://www.medibuntu.org/sources.list.d/$(lsb_release -cs).list && sudo apt-get --quiet update && sudo apt-get --yes --quiet --allow-unauthenticated install medibuntu-keyring && sudo apt-get --quiet update
 
 # Themes / https://launchpad.net/~bisigi/+archive/ppa
 echo 'deb http://ppa.launchpad.net/bisigi/ppa/ubuntu hardy main' | gksu tee -a /etc/apt/sources.list.d/launchpad.list
@@ -44,24 +44,24 @@ echo 'deb http://ppa.launchpad.net/ubuntu-wine/ppa/ubuntu hardy main' | gksu tee
 gksu apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 883e8688397576b6c509df495a9a06aef9cb8db0
 
 # update
-gksu aptitude update &&
+gksu aptitude update
 
 # upgrade
-gksu aptitude upgrade &&
+sudo aptitude safe-upgrade
 
 # uninstall
 # openjdk is slightly broken in Hardy
-gksu aptitude purge \
+sudo aptitude purge \
 gnash \
 gnash-common \
 icedtea-gcjwebplugin \
 mozilla-plugin-gnash \
 openjdk-6-jre \
 openjdk-6-jre-headless \
-openjdk-6-jre-lib &&
+openjdk-6-jre-lib
 
 # install
-gksu aptitude install \
+sudo aptitude install \
 agave \
 alsa-oss \
 audacity \
@@ -129,7 +129,7 @@ ubuntu-sunrise-theme \
 aquadreams-theme \
 gnome-colors \
 arc-colors \
-shiki-colors &&
+shiki-colors
 
 # install elementary icons
 # elementaryart ppa not support in hardy, must manually download

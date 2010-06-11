@@ -4,7 +4,7 @@
 # Install requested and required programs and libraries for a better
 #     desktop experience
 # Copyright (C) 2007-2010  Brett Alton <brett.jr.alton@gmail.com>
-# Last edited 2010-06-03
+# Last edited 2010-06-011
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -41,7 +41,7 @@ gksu add-apt-repository ppa:ubuntu-wine/ppa # Ubuntu Wine
 gksu add-apt-repository ppa:zeitgeist/ppa # Zeitgeist / GNOME Activity Journal (package not yet installed below)
 
 # Medibuntu / https://help.ubuntu.com/community/Medibuntu
-gksu wget --output-document=/etc/apt/sources.list.d/medibuntu.list http://www.medibuntu.org/sources.list.d/$(lsb_release -cs).list && gksu apt-get --quiet update && gksu apt-get --yes --quiet --allow-unauthenticated install medibuntu-keyring && gksu apt-get --quiet update
+sudo wget --output-document=/etc/apt/sources.list.d/medibuntu.list http://www.medibuntu.org/sources.list.d/$(lsb_release -cs).list && sudo apt-get --quiet update && sudo apt-get --yes --quiet --allow-unauthenticated install medibuntu-keyring && sudo apt-get --quiet update
 
 # VirtualBox / http://www.virtualbox.org/wiki/Linux_Downloads
 #echo 'deb http://download.virtualbox.org/virtualbox/debian lucid non-free' | gksu tee /etc/apt/sources.list.d/virtualbox.list
@@ -80,11 +80,11 @@ fi
 gksu aptitude update
 
 # upgrade
-gksu aptitude upgrade
+sudo aptitude safe-upgrade
 
 # took out virtualbox-3.2 for now
 # install
-gksu aptitude install \
+sudo aptitude install \
 abiword \
 agave \
 audacity \
@@ -281,6 +281,6 @@ echo 'true' > $HOME/.font.conf
 
 # gconftool-2 --type string --set /apps/nautilus/preferences/navigation_window_saved_geometry 639x423+-2+292
 
-# gksu aptitude install apache2 libapache2-mod-php5 mysql-server php5 php5-mysql phpmyadmin
+# sudo aptitude install apache2 libapache2-mod-php5 mysql-server php5 php5-mysql phpmyadmin
 # gksu rm -r /var/www
 # gksu ln -s /home/brett/www /var/www

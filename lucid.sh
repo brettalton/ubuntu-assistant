@@ -4,7 +4,7 @@
 # Install requested and required programs and libraries for a better
 #     desktop experience
 # Copyright (C) 2007-2010  Brett Alton <brett.jr.alton@gmail.com>
-# Last edited 2010-06-03
+# Last edited 2010-06-11
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@ fi
 gksu add-apt-repository ppa:banshee-team/ppa # Banshee Media Player
 gksu add-apt-repository ppa:chromium-daily/ppa # Chromium Web Browser
 gksu add-apt-repository ppa:docky-core/ppa # Docky (package not yet installed below)
-gksu add-apt-repository ppa:doctormo/groadd-apt-repositoryundcontrol # Ground Control
+gksu add-apt-repository ppa:doctormo/groundcontrol # Ground Control
 gksu add-apt-repository ppa:elementaryart/ppa # Elementary Art
 gksu add-apt-repository ppa:gstreamer-developers/ppa # PiTiVi Video Editor
 gksu add-apt-repository ppa:lernid-devs/lernid-releases # Lernid
@@ -41,7 +41,7 @@ gksu add-apt-repository ppa:ubuntu-wine/ppa # Ubuntu Wine
 gksu add-apt-repository ppa:zeitgeist/ppa # Zeitgeist / GNOME Activity Journal (package not yet installed below)
 
 # Medibuntu / https://help.ubuntu.com/community/Medibuntu
-gksu wget --output-document=/etc/apt/sources.list.d/medibuntu.list http://www.medibuntu.org/sources.list.d/$(lsb_release -cs).list && gksu apt-get --quiet update && gksu apt-get --yes --quiet --allow-unauthenticated install medibuntu-keyring && gksu apt-get --quiet update
+sudo wget --output-document=/etc/apt/sources.list.d/medibuntu.list http://www.medibuntu.org/sources.list.d/$(lsb_release -cs).list && sudo apt-get --quiet update && sudo apt-get --yes --quiet --allow-unauthenticated install medibuntu-keyring && sudo apt-get --quiet update
 
 # GetDeb / PlayDeb
 PLAYDEB=playdeb_0.3-1~getdeb1_all.deb
@@ -73,13 +73,13 @@ else
 fi
 
 # update
-gksu aptitude update &&
+gksu aptitude update
 
 # upgrade
-gksu aptitude upgrade &&
+sudo aptitude safe-upgrade
 
 # install
-gksu aptitude install \
+sudo aptitude install \
 agave \
 audacity \
 banshee \
@@ -134,7 +134,7 @@ unrar \
 vlc \
 wine1.2 \
 gnome-colors \
-shiki-colors &&
+shiki-colors
 
 # add new Ubuntu logo in gnome-panel
 cd $HOME

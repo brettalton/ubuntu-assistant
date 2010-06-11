@@ -4,7 +4,7 @@
 # Install requested and required programs and libraries for a better
 #     desktop experience
 # Copyright (C) 2007-2010  Brett Alton <brett.jr.alton@gmail.com>
-# Last edited 2010-06-03
+# Last edited 2010-06-11
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -39,7 +39,7 @@ gksu add-apt-repository ppa:ubuntu-wine/ppa # Ubuntu Wine
 gksu add-apt-repository ppa:zeitgeist/ppa # Zeitgeist / GNOME Activity Journal (package not yet installed below)
 
 # Medibuntu / https://help.ubuntu.com/community/Medibuntu
-gksu wget http://www.medibuntu.org/sources.list.d/karmic.list -O /etc/apt/sources.list.d/medibuntu.list
+sudo wget --output-document=/etc/apt/sources.list.d/medibuntu.list http://www.medibuntu.org/sources.list.d/$(lsb_release -cs).list && sudo apt-get --quiet update && sudo apt-get --yes --quiet --allow-unauthenticated install medibuntu-keyring && sudo apt-get --quiet update
 
 # GetDeb / PlayDeb
 PLAYDEB=playdeb_0.3-1~getdeb1_all.deb
@@ -62,13 +62,13 @@ else
 fi
 
 # update
-gksu aptitude update &&
+gksu aptitude update
 
 # upgrade
-gksu aptitude upgrade &&
+sudo aptitude safe-upgrade
 
 # install
-gksu aptitude install \
+sudo aptitude install \
 abiword \
 agave \
 audacity \
@@ -120,7 +120,7 @@ vlc \
 wine1.2 \
 gnome-colors \
 arc-colors \
-shiki-colors &&
+shiki-colors
 
 # add new Ubuntu logo in gnome-panel
 cd $HOME
