@@ -4,7 +4,7 @@
 # Install requested and required programs and libraries for a better
 #     desktop experience
 # Copyright (C) 2007-2010  Brett Alton <brett.jr.alton@gmail.com>
-# Last edited 2010-06-11
+# Last edited 2010-06-14
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -26,15 +26,18 @@ fi
 
 gksu add-apt-repository ppa:banshee-team/ppa # Banshee Media Player
 gksu add-apt-repository ppa:chromium-daily/ppa # Chromium Web Browser
-gksu add-apt-repository ppa:do-core/ppa # GNOME-Do (package not yet installed below)
 gksu add-apt-repository ppa:docky-core/ppa # Docky (package not yet installed below)
 gksu add-apt-repository ppa:doctormo/groundcontrol # Ground Control
 gksu add-apt-repository ppa:elementaryart/ppa # Elementary Art
 gksu add-apt-repository ppa:gstreamer-developers/ppa # PiTiVi Video Editor
-gksu add-apt-repository ppa:gtg/ppa # Getting Things GNOME! (package not yet installed below)
 gksu add-apt-repository ppa:lernid-devs/lernid-releases # Lernid
+gksu add-apt-repository ppa:openshot.developers/ppa # Openshot
 gksu add-apt-repository ppa:pidgin-developers/ppa # Pidgin Instant Messenger
+gksu add-apt-repository ppa:rabbitvcs/ppa # RabbitVCS (package not yet installed below)
+gksu add-apt-repsoitory ppa:jonls/redshift-ppa # Redshift (package not yet installed below)
+gksu add-apt-repository ppa:savoirfairelinux # SFLPhone (package not yet installed below)
 gksu add-apt-repository ppa:team-xbmc/ppa # XBMC (package not yet installed below)
+gksu add-apt-repository ppa:tualatrix/ppa # Ubuntu Tweak
 gksu add-apt-repository ppa:ubuntu-wine/ppa # Ubuntu Wine
 gksu add-apt-repository ppa:zeitgeist/ppa # Zeitgeist / GNOME Activity Journal (package not yet installed below)
 
@@ -56,7 +59,7 @@ fi
 gksu dpkg -i $PLAYDEB $GETDEB
 
 if [ $? -eq 0 ]; then
-	rm $PLAYDEB $GETDEB
+	rm -f $PLAYDEB $GETDEB
 else
 	echo ' !! could not install playdeb/getdeb repositories!'
 fi
@@ -142,7 +145,7 @@ if [ ! -f $HOME/start-here.png ]; then
 		fi
 
 		cp -p $HOME/start-here.png $HOME/.icons/elementary-monochrome/apps/24/start-here.png
-		rm $HOME/start-here.png
+		rm -f $HOME/start-here.png
 	fi
 fi
 
@@ -159,7 +162,7 @@ fi
 
 # delete old jump-to-playing plugin, if it exists
 if [ -d $HOME/.gnome2/rhythmbox/plugins/jump-to-playing/ ]; then
-	rm -r $HOME/.gnome2/rhythmbox/plugins/jump-to-playing/
+	rm -rf $HOME/.gnome2/rhythmbox/plugins/jump-to-playing/
 fi
 
 # create rhytmbox directory if it does not exist
@@ -170,7 +173,7 @@ fi
 # extract downloaded file to rhythmbox plugins directory
 if [ -f $HOME/jump-to-playing-0.3.1.tar.gz ]; then
 	tar -xvzf jump-to-playing-0.3.1.tar.gz -C $HOME/.gnome2/rhythmbox/plugins/ &&
-	rm $HOME/jump-to-playing-0.3.1.tar.gz
+	rm -f $HOME/jump-to-playing-0.3.1.tar.gz
 else
 	echo ' !! jump-to-playing-0.3.1.tar.gz not found -- could not install!'
 fi
@@ -193,7 +196,7 @@ fi
 # extract downloaded file to rhythmbox plugins directory
 if [ -f $HOME/fonts-20100415.tar.gz ]; then
 	tar -xvzf fonts-20100415.tar.gz -C $HOME/.fonts/ &&
-	rm $HOME/fonts-20100415.tar.gz
+	rm -f $HOME/fonts-20100415.tar.gz
 else
 	echo ' !! fonts-20100415.tar.gz not found -- could not install!'
 fi

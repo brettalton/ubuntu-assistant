@@ -4,7 +4,7 @@
 # Install requested and required programs and libraries for a better
 #     desktop experience
 # Copyright (C) 2007-2010  Brett Alton <brett.jr.alton@gmail.com>
-# Last edited 2010-06-11
+# Last edited 2010-06-14
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -153,25 +153,25 @@ fi
 
 # delete old elementary folder, if it exists
 if [ -d /usr/share/icons/elementary/ ]; then
-	gksu rm -r /usr/share/icons/elementary/
+	gksu rm -rf /usr/share/icons/elementary/
 fi
 
 # delete old elementary-monochrome folder, if it exists
 if [ -d /usr/share/icons/elementary-monochrome/ ]; then
-	gksu rm -r /usr/share/icons/elementary-monochrome/
+	gksu rm -rf /usr/share/icons/elementary-monochrome/
 fi
 
 # extract downloaded files to /usr/share/icons/ directory
 if [ -f $HOME/elementary.tar.gz ]; then
 	gksu tar -xvzf elementary.tar.gz -C /usr/share/icons/ &&
-	rm $HOME/elementary.tar.gz
+	rm -f $HOME/elementary.tar.gz
 else
 	echo ' !! elementary.tar.gz not found -- could not install!'
 fi
 
 if [ -f $HOME/elementary-monochrome.tar.gz ]; then
 	gksu tar -xvzf elementary-monochrome.tar.gz -C /usr/share/icons/ &&
-	rm $HOME/elementary-monochrome.tar.gz
+	rm -f $HOME/elementary-monochrome.tar.gz
 else
 	echo ' !! elementary-monocrhome.tar.gz not found -- could not install!'
 fi
@@ -189,7 +189,7 @@ fi
 
 # delete old jump-to-playing plugin, if it exists
 if [ -d $HOME/.gnome2/rhythmbox/plugins/jump-to-playing/ ]; then
-	rm -r $HOME/.gnome2/rhythmbox/plugins/jump-to-playing/
+	rm -fr $HOME/.gnome2/rhythmbox/plugins/jump-to-playing/
 fi
 
 # create rhytmbox directory if it does not exist
@@ -200,7 +200,7 @@ fi
 # extract downloaded file to rhythmbox plugins directory
 if [ -f $HOME/jump-to-playing-0.3.1.tar.gz ]; then
 	tar -xvzf jump-to-playing-0.3.1.tar.gz -C $HOME/.gnome2/rhythmbox/plugins/ &&
-	rm $HOME/jump-to-playing-0.3.1.tar.gz
+	rm -f $HOME/jump-to-playing-0.3.1.tar.gz
 else
 	echo ' !! jump-to-playing-0.3.1.tar.gz not found -- could not install!'
 fi
@@ -223,7 +223,7 @@ fi
 # extract downloaded file to rhythmbox plugins directory
 if [ -f $HOME/fonts-20100415.tar.gz ]; then
 	tar -xvzf fonts-20100415.tar.gz -C $HOME/.fonts/ &&
-	rm $HOME/fonts-20100415.tar.gz
+	rm -f $HOME/fonts-20100415.tar.gz
 else
 	echo ' !! fonts-20100415.tar.gz not found -- could not install!'
 fi

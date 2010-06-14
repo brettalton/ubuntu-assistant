@@ -4,7 +4,7 @@
 # Install requested and required programs and libraries for a better
 #     desktop experience
 # Copyright (C) 2007-2010  Brett Alton <brett.jr.alton@gmail.com>
-# Last edited 2010-06-011
+# Last edited 2010-06-14
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -33,7 +33,8 @@ gksu add-apt-repository ppa:gstreamer-developers/ppa # PiTiVi Video Editor
 gksu add-apt-repository ppa:lernid-devs/lernid-releases # Lernid
 gksu add-apt-repository ppa:openshot.developers/ppa # Openshot
 gksu add-apt-repository ppa:pidgin-developers/ppa # Pidgin Instant Messenger
-gksu add-apt-repository ppa:rabbitvcs/ppa # RabbitVCS
+gksu add-apt-repository ppa:rabbitvcs/ppa # RabbitVCS (package not yet installed below)
+gksu add-apt-repsoitory ppa:jonls/redshift-ppa # Redshift (package not yet installed below)
 gksu add-apt-repository ppa:savoirfairelinux # SFLPhone
 gksu add-apt-repository ppa:team-xbmc/ppa # XBMC (package not yet installed below)
 gksu add-apt-repository ppa:tualatrix/ppa # Ubuntu Tweak
@@ -44,8 +45,8 @@ gksu add-apt-repository ppa:zeitgeist/ppa # Zeitgeist / GNOME Activity Journal (
 sudo wget --output-document=/etc/apt/sources.list.d/medibuntu.list http://www.medibuntu.org/sources.list.d/$(lsb_release -cs).list && sudo apt-get --quiet update && sudo apt-get --yes --quiet --allow-unauthenticated install medibuntu-keyring && sudo apt-get --quiet update
 
 # VirtualBox / http://www.virtualbox.org/wiki/Linux_Downloads
-#echo 'deb http://download.virtualbox.org/virtualbox/debian lucid non-free' | gksu tee /etc/apt/sources.list.d/virtualbox.list
-#wget -q http://download.virtualbox.org/virtualbox/debian/sun_vbox.asc -O- | gksu apt-key add -
+echo 'deb http://download.virtualbox.org/virtualbox/debian lucid non-free' | gksu tee /etc/apt/sources.list.d/virtualbox.list
+wget -q http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc -O- | sudo apt-key add -
 
 # GetDeb / PlayDeb
 PLAYDEB=playdeb_0.3-1~getdeb1_all.deb
@@ -64,7 +65,7 @@ if [ $? -eq 0 ]; then
 		gksu dpkg -i $PLAYDEB $GETDEB
 	
 		if [ $? -eq 0 ]; then
-			rm $PLAYDEB $GETDEB
+			rm -f $PLAYDEB $GETDEB
 			echo ' -- installed playdeb/getdeb repositories'
 		else
 			echo ' !! could not install playdeb/getdeb repositories!'
@@ -139,7 +140,7 @@ pidgin \
 pidgin-facebookchat \
 pidgin-libnotify \
 pidgin-themes \
-rabbitvcs-nautilus \
+redshift \
 secure-delete \
 sflphone-client-gnome \
 soundconverter \
@@ -149,6 +150,7 @@ ubuntu-tweak \
 ubuntu-wallpapers-extra \
 unrar \
 vim-nox \
+virtualbox-3.2
 vlc \
 wine1.2 \
 gnome-colors \
@@ -174,7 +176,7 @@ if [ ! -f $HOME/start-here.png ]; then
 		fi
 
 		cp -p $HOME/start-here.png $HOME/.icons/elementary-monochrome/apps/24/start-here.png
-		rm $HOME/start-here.png
+		rm -f $HOME/start-here.png
 	fi
 fi
 
@@ -191,7 +193,7 @@ fi
 
 # delete old jump-to-playing plugin, if it exists
 if [ -d $HOME/.gnome2/rhythmbox/plugins/jump-to-playing/ ]; then
-	rm -r $HOME/.gnome2/rhythmbox/plugins/jump-to-playing/
+	rm -rf $HOME/.gnome2/rhythmbox/plugins/jump-to-playing/
 fi
 
 # create rhytmbox directory if it does not exist
@@ -202,7 +204,7 @@ fi
 # extract downloaded file to rhythmbox plugins directory
 if [ -f $HOME/jump-to-playing-0.3.1.tar.gz ]; then
 	tar -xvzf jump-to-playing-0.3.1.tar.gz -C $HOME/.gnome2/rhythmbox/plugins/ &&
-	rm $HOME/jump-to-playing-0.3.1.tar.gz
+	rm -f $HOME/jump-to-playing-0.3.1.tar.gz
 else
 	echo ' !! jump-to-playing-0.3.1.tar.gz not found -- could not install!'
 fi
@@ -225,7 +227,7 @@ fi
 # extract downloaded file to rhythmbox plugins directory
 if [ -f $HOME/fonts-20100415.tar.gz ]; then
 	tar -xvzf fonts-20100415.tar.gz -C $HOME/.fonts/ &&
-	rm $HOME/fonts-20100415.tar.gz
+	rm -f $HOME/fonts-20100415.tar.gz
 else
 	echo ' !! fonts-20100415.tar.gz not found -- could not install!'
 fi
