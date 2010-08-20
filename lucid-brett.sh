@@ -34,7 +34,7 @@ gksu add-apt-repository ppa:lernid-devs/lernid-releases # Lernid
 gksu add-apt-repository ppa:openshot.developers/ppa # Openshot
 gksu add-apt-repository ppa:pidgin-developers/ppa # Pidgin Instant Messenger
 gksu add-apt-repository ppa:rabbitvcs/ppa # RabbitVCS (package not yet installed below)
-gksu add-apt-repsoitory ppa:jonls/redshift-ppa # Redshift (package not yet installed below)
+gksu add-apt-repository ppa:jonls/redshift-ppa # Redshift (package not yet installed below)
 gksu add-apt-repository ppa:savoirfairelinux # SFLPhone
 gksu add-apt-repository ppa:team-xbmc/ppa # XBMC (package not yet installed below)
 gksu add-apt-repository ppa:tualatrix/ppa # Ubuntu Tweak
@@ -110,8 +110,12 @@ firefox-notify \
 flashplugin-nonfree \
 freemind \
 gimp \
+git-core \
 gnome-backgrounds \
+gnome-themes \
 gnome-themes-extras \
+gnome-themes-more \
+gnome-themes-selected \
 gnome-themes-ubuntu \
 gparted \
 groundcontrol \
