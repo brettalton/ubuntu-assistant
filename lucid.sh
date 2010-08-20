@@ -4,7 +4,7 @@
 # Install requested and required programs and libraries for a better
 #     desktop experience
 # Copyright (C) 2007-2010  Brett Alton <brett.jr.alton@gmail.com>
-# Last edited 2010-06-14
+# Last edited 2010-08-20
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@ if [ ! -f /usr/bin/zenity ]; then
 fi
 
 gksu add-apt-repository ppa:banshee-team/ppa # Banshee Media Player
-gksu add-apt-repository ppa:chromium-daily/ppa # Chromium Web Browser
+gksu add-apt-repository ppa:chromium-daily/stable # Chromium Web Browser
 gksu add-apt-repository ppa:docky-core/ppa # Docky (package not yet installed below)
 gksu add-apt-repository ppa:doctormo/groundcontrol # Ground Control
 gksu add-apt-repository ppa:elementaryart/ppa # Elementary Art
