@@ -89,6 +89,7 @@ banshee-extension-coverwallpaper \
 banshee-extension-lyrics \
 banshee-extension-mirage \
 cheese \
+chromium-browser \
 clive \
 community-themes \
 cups-pdf \
@@ -102,6 +103,7 @@ firefox-notify \
 flashplugin-nonfree \
 gimp \
 gnome-backgrounds \
+gnome-colors \
 gnome-themes-extras \
 gnome-themes-ubuntu \
 gstreamer0.10-ffmpeg \
@@ -126,16 +128,14 @@ pidgin \
 pidgin-facebookchat \
 pidgin-libnotify \
 pidgin-themes \
-secure-delete \
+shiki-colors \
 soundconverter \
 startupmanager \
 ubuntu-tweak \
 ubuntu-wallpapers-extra \
 unrar \
 vlc \
-wine1.2 \
-gnome-colors \
-shiki-colors
+wine1.2
 
 # add new Ubuntu logo in gnome-panel
 cd $HOME
@@ -245,7 +245,3 @@ tooltip_bg_color:#f5f5f5f5b5b5"
 	gconftool-2 --type string --set /desktop/gnome/interface/gtk_theme "Clearlooks"
 	gconftool-2 --type string --set /desktop/gnome/interface/icon_theme "elementary-monochrome"
 fi
-
-# better font rendering
-echo 'true' > $HOME/.font.conf
-

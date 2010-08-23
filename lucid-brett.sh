@@ -86,7 +86,6 @@ sudo aptitude safe-upgrade
 # took out virtualbox-3.2 for now
 # install
 sudo aptitude install \
-abiword \
 agave \
 audacity \
 banshee \
@@ -112,6 +111,7 @@ freemind \
 gimp \
 git-core \
 gnome-backgrounds \
+gnome-colors \
 gnome-themes \
 gnome-themes-extras \
 gnome-themes-more \
@@ -146,7 +146,7 @@ pidgin-libnotify \
 pidgin-themes \
 redshift \
 secure-delete \
-sflphone-client-gnome \
+shiki-colors \
 soundconverter \
 ssh \
 startupmanager \
@@ -154,11 +154,9 @@ ubuntu-tweak \
 ubuntu-wallpapers-extra \
 unrar \
 vim-nox \
-virtualbox-3.2
+virtualbox-3.2 \
 vlc \
-wine1.2 \
-gnome-colors \
-shiki-colors &&
+wine1.2
 
 # add new Ubuntu logo in gnome-panel
 cd $HOME
@@ -281,12 +279,3 @@ tooltip_bg_color:#f5f5f5f5b5b5"
 	gconftool-2 --type string --set /desktop/gnome/interface/gtk_theme "Clearlooks"
 	gconftool-2 --type string --set /desktop/gnome/interface/icon_theme "elementary-monochrome"
 fi
-
-# better font rendering
-echo 'true' > $HOME/.font.conf
-
-# gconftool-2 --type string --set /apps/nautilus/preferences/navigation_window_saved_geometry 639x423+-2+292
-
-# sudo aptitude install apache2 libapache2-mod-php5 mysql-server php5 php5-mysql phpmyadmin
-# gksu rm -r /var/www
-# gksu ln -s /home/brett/www /var/www
