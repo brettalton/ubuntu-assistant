@@ -4,7 +4,7 @@
 # Install requested and required programs and libraries for a better
 #     desktop experience
 # Copyright (C) 2007-2010  Brett Alton <brett.jr.alton@gmail.com>
-# Last edited 2010-06-14
+# Last edited 2010-09-06
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,10 +24,13 @@ if [ ! -f /usr/bin/zenity ]; then
 	gksu aptitude install zenity
 fi
 
-
 # Banshee / https://launchpad.net/~banshee-team/+archive/ppa
 echo 'deb http://ppa.launchpad.net/banshee-team/ppa/ubuntu jaunty main' | gksu tee -a /etc/apt/sources.list.d/launchpad.list
 gksu apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 9D2C2E0A3C88DD807EC787D74874D3686E80C6B7
+
+# Elementary / https://launchpad.net/~elementaryart/+archive/ppa
+echo 'deb http://ppa.launchpad.net/elementaryart/ppa/ubuntu jaunty main' | gksu tee -a /etc/apt/sources.list.d/launchpad.list
+gksu apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 76A05B6EF0D7ADD61E7784674D17133CFC5D50C5
 
 # GNOME-Colors / https://launchpad.net/~gnome-colors-packagers/+archive/ppa
 echo 'deb http://ppa.launchpad.net/gnome-colors-packagers/ppa/ubuntu jaunty main' | gksu tee -a /etc/apt/sources.list.d/launchpad.list
@@ -53,19 +56,28 @@ PLAYDEB=playdeb_0.3-1~getdeb1_all.deb
 GETDEB=getdeb-repository_0.1-1~getdeb1_all.deb
 
 if [ ! -f $PLAYDEB ]; then
-	wget http://archive.getdeb.net/install_deb/$PLAYDEB
+	wget --tries=1 http://archive.getdeb.net/install_deb/$PLAYDEB
 fi
-
-if [ ! -f $GETDEB ]; then
-	wget http://archive.getdeb.net/install_deb/$GETDEB
-fi
-
-gksu dpkg -i $PLAYDEB $GETDEB
 
 if [ $? -eq 0 ]; then
-	rm -f $PLAYDEB $GETDEB
+	if [ ! -f $GETDEB ]; then
+		wget --tries=1 http://archive.getdeb.net/install_deb/$GETDEB
+	fi
+
+	if [ $? -eq 0 ]; then
+		gksu dpkg -i $PLAYDEB $GETDEB
+	
+		if [ $? -eq 0 ]; then
+			rm -f $PLAYDEB $GETDEB
+			echo ' -- installed playdeb/getdeb repositories'
+		else
+			echo ' !! could not install playdeb/getdeb repositories!'
+		fi
+	else
+		echo ' !! could not download getdeb repositories!'
+	fi
 else
-	echo ' !! could not install playdeb/getdeb repositories!'
+	echo ' !! could not download playdeb repositories!'
 fi
 
 # update
@@ -77,6 +89,7 @@ sudo aptitude safe-upgrade
 # install
 sudo aptitude install \
 agave \
+arc-colors \
 audacity \
 banshee \
 cheese \
@@ -90,6 +103,7 @@ ffmpeg \
 flashplugin-nonfree \
 flegita \
 gnome-backgrounds \
+gnome-colors \
 gstreamer0.10-ffmpeg \
 gstreamer0.10-plugins-bad \
 gstreamer0.10-plugins-bad-multiverse \
@@ -112,12 +126,12 @@ pidgin-facebookchat \
 pidgin-guifications \
 pidgin-libnotify \
 pidgin-themes \
+shiki-colors \
+ttf-droid \
 unrar \
 vlc \
-wine \
-gnome-colors \
-arc-colors \
-shiki-colors
+wine
+
 
 # add new Ubuntu logo in gnome-panel
 cd $HOME

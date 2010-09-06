@@ -4,7 +4,7 @@
 # Install requested and required programs and libraries for a better
 #     desktop experience
 # Copyright (C) 2007-2010  Brett Alton <brett.jr.alton@gmail.com>
-# Last edited 2010-08-20
+# Last edited 2010-09-06
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -131,6 +131,7 @@ pidgin-themes \
 shiki-colors \
 soundconverter \
 startupmanager \
+ttf-droid \
 ubuntu-tweak \
 ubuntu-wallpapers-extra \
 unrar \

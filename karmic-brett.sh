@@ -4,7 +4,7 @@
 # Install requested and required programs and libraries for a better
 #     desktop experience
 # Copyright (C) 2007-2010  Brett Alton <brett.jr.alton@gmail.com>
-# Last edited 2010-06-14
+# Last edited 2010-09-06
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -53,19 +53,28 @@ PLAYDEB=playdeb_0.3-1~getdeb1_all.deb
 GETDEB=getdeb-repository_0.1-1~getdeb1_all.deb
 
 if [ ! -f $PLAYDEB ]; then
-	wget http://archive.getdeb.net/install_deb/$PLAYDEB
+	wget --tries=1 http://archive.getdeb.net/install_deb/$PLAYDEB
 fi
-
-if [ ! -f $GETDEB ]; then
-	wget http://archive.getdeb.net/install_deb/$GETDEB
-fi
-
-gksu dpkg -i $PLAYDEB $GETDEB
 
 if [ $? -eq 0 ]; then
-	rm -f $PLAYDEB $GETDEB
+	if [ ! -f $GETDEB ]; then
+		wget --tries=1 http://archive.getdeb.net/install_deb/$GETDEB
+	fi
+
+	if [ $? -eq 0 ]; then
+		gksu dpkg -i $PLAYDEB $GETDEB
+	
+		if [ $? -eq 0 ]; then
+			rm -f $PLAYDEB $GETDEB
+			echo ' -- installed playdeb/getdeb repositories'
+		else
+			echo ' !! could not install playdeb/getdeb repositories!'
+		fi
+	else
+		echo ' !! could not download getdeb repositories!'
+	fi
 else
-	echo ' !! could not install playdeb/getdeb repositories!'
+	echo ' !! could not download playdeb repositories!'
 fi
 
 # update
@@ -79,6 +88,7 @@ sudo aptitude install \
 abiword \
 abiword-plugins \
 agave \
+arc-colors \
 audacity \
 banshee \
 cheese \
@@ -96,6 +106,7 @@ firefox-notify \
 flashplugin-nonfree \
 flegita \
 gnome-backgrounds \
+gnome-colors \
 gnome-themes-extras \
 gnome-themes-ubuntu \
 gparted \
@@ -128,16 +139,16 @@ pitivi \
 redshift \
 secure-delete \
 soundconverter \
+shiki-colors \
 ssh \
 startupmanager \
+ttf-droid \
 unrar \
 vim-nox \
 virtualbox-3.2 \
 vlc \
-wine1.2 \
-gnome-colors \
-arc-colors \
-shiki-colors &&
+wine1.2
+
 
 # freemind (Lucid to Karmic backport)
 wget http://mirrors.kernel.org/ubuntu/pool/universe/f/freemind/freemind_0.9.0~rc6+dfsg-1ubuntu1_all.deb http://mirrors.kernel.org/ubuntu/pool/universe/f/freemind/freemind-browser_0.9.0~rc6+dfsg-1ubuntu1_all.deb http://mirrors.kernel.org/ubuntu/pool/universe/f/freemind/freemind-doc_0.9.0~rc6+dfsg-1ubuntu1_all.deb http://mirrors.kernel.org/ubuntu/pool/universe/f/freemind/freemind-plugins-help_0.9.0~rc6+dfsg-1ubuntu1_all.deb http://mirrors.kernel.org/ubuntu/pool/universe/f/freemind/freemind-plugins-script_0.9.0~rc6+dfsg-1ubuntu1_all.deb http://mirrors.kernel.org/ubuntu/pool/universe/f/freemind/freemind-plugins-svg_0.9.0~rc6+dfsg-1ubuntu1_all.deb ; sudo aptitude install libcommons-lang-java libjgoodies-forms-java libjibx-java openjdk-6-jre simplyhtml javahelp2 groovy libbatik-java rhino ; gksu dpkg -i freemind*.deb ; rm freemind*.deb
