@@ -4,7 +4,7 @@
 # Install requested and required programs and libraries for a better
 #     desktop experience
 # Copyright (C) 2007-2010  Brett Alton <brett.jr.alton@gmail.com>
-# Last edited 2010-09-06
+# Last edited 2010-10-17
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,25 +21,26 @@
 
 # Depends on Zenity
 if [ ! -f /usr/bin/zenity ]; then
-	gksu aptitude install zenity
+	sudo aptitude install zenity
 fi
 
-gksu add-apt-repository ppa:banshee-team/ppa # Banshee Media Player
-gksu add-apt-repository ppa:chromium-daily/ppa # Chromium Web Browser
-gksu add-apt-repository ppa:docky-core/ppa # Docky (package not yet installed below)
-gksu add-apt-repository ppa:doctormo/groundcontrol # Ground Control
-gksu add-apt-repository ppa:elementaryart/ppa # Elementary Art
-gksu add-apt-repository ppa:gstreamer-developers/ppa # PiTiVi Video Editor
-gksu add-apt-repository ppa:lernid-devs/lernid-releases # Lernid
-gksu add-apt-repository ppa:openshot.developers/ppa # Openshot
-gksu add-apt-repository ppa:pidgin-developers/ppa # Pidgin Instant Messenger
-gksu add-apt-repository ppa:rabbitvcs/ppa # RabbitVCS (package not yet installed below)
-gksu add-apt-repsoitory ppa:jonls/redshift-ppa # Redshift (package not yet installed below)
-gksu add-apt-repository ppa:savoirfairelinux # SFLPhone (package not yet installed below)
-gksu add-apt-repository ppa:team-xbmc/ppa # XBMC (package not yet installed below)
-gksu add-apt-repository ppa:tualatrix/ppa # Ubuntu Tweak
-gksu add-apt-repository ppa:ubuntu-wine/ppa # Ubuntu Wine
-gksu add-apt-repository ppa:zeitgeist/ppa # Zeitgeist / GNOME Activity Journal (package not yet installed below)
+sudo add-apt-repository ppa:banshee-team/ppa # Banshee Media Player
+sudo add-apt-repository ppa:chromium-daily/ppa # Chromium Web Browser
+sudo add-apt-repository ppa:docky-core/ppa # Docky (package not yet installed below)
+sudo add-apt-repository ppa:doctormo/groundcontrol # Ground Control
+sudo add-apt-repository ppa:elementaryart/ppa # Elementary Art
+sudo add-apt-repository ppa:gstreamer-developers/ppa # PiTiVi Video Editor
+sudo add-apt-repository ppa:lernid-devs/lernid-releases # Lernid
+sudo add-apt-repository ppa:openshot.developers/ppa # Openshot
+sudo add-apt-repository ppa:pidgin-developers/ppa # Pidgin Instant Messenger
+sudo add-apt-repository ppa:rabbitvcs/ppa # RabbitVCS (package not yet installed below)
+sudo add-apt-repository ppa:jonls/redshift-ppa # Redshift (package not yet installed below)
+sudo add-apt-repository ppa:savoirfairelinux # SFLPhone (package not yet installed below)
+sudo add-apt-repository ppa:team-xbmc/ppa # XBMC (package not yet installed below)
+sudo add-apt-repository ppa:tiheum/equinox # Equinox theme and Faenza icon set
+sudo add-apt-repository ppa:tualatrix/ppa # Ubuntu Tweak
+sudo add-apt-repository ppa:ubuntu-wine/ppa # Ubuntu Wine
+sudo add-apt-repository ppa:zeitgeist/ppa # Zeitgeist / GNOME Activity Journal (package not yet installed below)
 
 # Medibuntu / https://help.ubuntu.com/community/Medibuntu
 sudo wget --output-document=/etc/apt/sources.list.d/medibuntu.list http://www.medibuntu.org/sources.list.d/$(lsb_release -cs).list && sudo apt-get --quiet update && sudo apt-get --yes --quiet --allow-unauthenticated install medibuntu-keyring && sudo apt-get --quiet update
@@ -94,8 +95,11 @@ cups-pdf \
 elementary-icon-theme \
 elementary-theme \
 elementary-wallpapers \
+equinox-theme \
+equinox-ubuntu-theme \
 emesene \
 faad \
+faenza-icon-theme \
 ffmpeg \
 firefox-notify \
 flashplugin-nonfree \
@@ -110,6 +114,7 @@ gstreamer0.10-plugins-bad-multiverse \
 gstreamer0.10-plugins-ugly \
 gstreamer0.10-plugins-ugly-multiverse \
 gstreamer0.10-pitfdll \
+gtk2-engines-equinox \
 libdvdcss2 \
 libdvdnav4 \
 medibuntu-keyring \
@@ -133,7 +138,7 @@ startupmanager \
 ttf-droid \
 unrar \
 vlc \
-wine1.2
+wine1.3
 
 
 # add new Ubuntu logo in gnome-panel

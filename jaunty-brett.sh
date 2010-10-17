@@ -251,6 +251,7 @@ gconftool-2 --type bool --set  /apps/nautilus/desktop/computer_icon_visible "tru
 gconftool-2 --type bool --set  /apps/nautilus/desktop/home_icon_visible "true"
 gconftool-2 --type bool --set  /apps/nautilus/desktop/trash_icon_visible "true"
 gconftool-2 --type string --set /apps/nautilus/preferences/date_format "iso"
+gconftool-2 --set /apps/nautilus/preferences/always_use_location_entry --type=bool "true"
 
 # /desktop/gnome
 gconftool-2 --type int --set /desktop/gnome/thumbnail_cache/maximum_age "7" # only allow thumbnails for 7 days

@@ -4,7 +4,7 @@
 # Install requested and required programs and libraries for a better
 #     desktop experience
 # Copyright (C) 2007-2010  Brett Alton <brett.jr.alton@gmail.com>
-# Last edited 2010-09-06
+# Last edited 2010-10-17
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -37,6 +37,7 @@ sudo add-apt-repository ppa:rabbitvcs/ppa # RabbitVCS (package not yet installed
 sudo add-apt-repository ppa:jonls/redshift-ppa # Redshift (package not yet installed below)
 sudo add-apt-repository ppa:savoirfairelinux # SFLPhone
 sudo add-apt-repository ppa:team-xbmc/ppa # XBMC (package not yet installed below)
+sudo add-apt-repository ppa:tiheum/equinox # Equinox theme and Faenza icon set
 sudo add-apt-repository ppa:tualatrix/ppa # Ubuntu Tweak
 sudo add-apt-repository ppa:ubuntu-wine/ppa # Ubuntu Wine
 sudo add-apt-repository ppa:zeitgeist/ppa # Zeitgeist / GNOME Activity Journal (package not yet installed below)
@@ -45,8 +46,8 @@ sudo add-apt-repository ppa:zeitgeist/ppa # Zeitgeist / GNOME Activity Journal (
 sudo wget --output-document=/etc/apt/sources.list.d/medibuntu.list http://www.medibuntu.org/sources.list.d/$(lsb_release -cs).list && sudo apt-get --quiet update && sudo apt-get --yes --quiet --allow-unauthenticated install medibuntu-keyring && sudo apt-get --quiet update
 
 # VirtualBox / http://www.virtualbox.org/wiki/Linux_Downloads
-#echo 'deb http://download.virtualbox.org/virtualbox/debian maverick non-free' | sudo tee /etc/apt/sources.list.d/virtualbox.list
-#wget --tries=1 -q http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc -O- | sudo apt-key add -
+echo 'deb http://download.virtualbox.org/virtualbox/debian maverick non-free' | sudo tee /etc/apt/sources.list.d/virtualbox.list
+wget --tries=1 -q http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc -O- | sudo apt-key add -
 
 # GetDeb / PlayDeb
 PLAYDEB=playdeb_0.3-1~getdeb1_all.deb
@@ -85,7 +86,7 @@ sudo apt-get safe-upgrade
 
 # took out virtualbox-3.2 for now
 # install
-sudo aptitude install \
+sudo apt-get install \
 agave \
 audacity \
 banshee \
@@ -103,7 +104,10 @@ elementary-icon-theme \
 elementary-theme \
 elementary-wallpapers \
 emesene \
+equinox-theme \
+equinox-ubuntu-theme \
 faad \
+faenza-icon-theme \
 ffmpeg \
 firefox-notify \
 flashplugin-nonfree \
@@ -124,7 +128,8 @@ gstreamer0.10-plugins-bad \
 gstreamer0.10-plugins-bad-multiverse \
 gstreamer0.10-plugins-ugly \
 gstreamer0.10-plugins-ugly-multiverse \
-lernid \
+gtk2-engines-equinox \
+faenza-icon-theme \
 libdvdcss2 \
 libdvdnav4 \
 liferea \
@@ -155,8 +160,9 @@ ubuntu-tweak \
 ubuntu-wallpapers-extra \
 unrar \
 vim-nox \
+virtualbox-3.2 \
 vlc \
-wine1.2
+wine1.3
 
 # add new Ubuntu logo in gnome-panel
 cd $HOME
@@ -245,17 +251,19 @@ gconftool-2 --type bool --set /apps/gedit-2/preferences/editor/save/create_backu
 gconftool-2 --type int --set /apps/gedit-2/preferences/editor/tabs/tabs_size "4" # tab size of 4 spaces
 gconftool-2 --type string --set /apps/gedit-2/preferences/editor/colors/scheme "oblivion" # change theme to oblivion
 gconftool-2 --type string --set /apps/gedit-2/preferences/editor/wrap_mode/wrap_mode "GTK_WRAP_WORD" # text wrap on
+
 # /apps/gnome-screenshot
 gconftool-2 --type bool --set  /apps/gnome-screenshot/include_pointer "false" # turn off mouse pointer in screenshots
 
 # /apps/rhythmbox
 gconftool-2 --type bool --set /apps/rhythmbox/plugins/jump-to-playing/active "true"
+
 #/apps/nautilus
 gconftool-2 --type string --set /apps/nautilus/preferences/show_icon_text "never"
-gconftool-2 --type bool --set  /apps/nautilus/desktop/computer_icon_visible "true"
 gconftool-2 --type bool --set  /apps/nautilus/desktop/home_icon_visible "true"
 gconftool-2 --type bool --set  /apps/nautilus/desktop/trash_icon_visible "true"
 gconftool-2 --type string --set /apps/nautilus/preferences/date_format "iso"
+gconftool-2 --set /apps/nautilus/preferences/always_use_location_entry --type=bool "true"
 
 # /desktop/gnome
 gconftool-2 --type int --set /desktop/gnome/thumbnail_cache/maximum_age "7" # only allow thumbnails for 7 days
@@ -263,19 +271,10 @@ gconftool-2 --type int --set /desktop/gnome/thumbnail_cache/maximum_age "7" # on
 # theme
 zenity --question --text "Do you want to use the custom Ubuntu Assistant theme?" --title="Ubuntu Assistant"
 if [ $? -eq 0 ]; then
-	gconftool-2 --type string --set /apps/metacity/general/button_layout "menu:minimize,maximize,close" # move buttons BACK to the right
-	gconftool-2 --type string --set /apps/metacity/general/theme "Shiki-Colors-Easy-Metacity"
-	gconftool-2 --type string --set /apps/metacity/general/titlebar_font "Patron Alt Medium 10"
-	gconftool-2 --type string --set /apps/nautilus/preferences/desktop_font "Arial 9"
-	gconftool-2 --type string --set /desktop/gnome/interface/font_name "Arial 9"
-	gconftool-2 --type string --set /desktop/gnome/interface/gtk_color_scheme "fg_color:#000000000000
-bg_color:#ededececebeb
-text_color:#1a1a1a1a1a1a
-base_color:#ffffffffffff
-selected_fg_color:#ffffffffffff
-selected_bg_color:#5b5b8080a7a7
-tooltip_fg_color:#000000000000
-tooltip_bg_color:#f5f5f5f5b5b5"
+	gconftool-2 --type string --set /apps/metacity/general/theme "Radiance"
+	gconftool-2 --type string --set /apps/metacity/general/titlebar_font "Ubuntu Italic 10"
+	gconftool-2 --type string --set /apps/nautilus/preferences/desktop_font "Ubuntu 9"
+	gconftool-2 --type string --set /desktop/gnome/interface/font_name "Ubuntu  9"
 	gconftool-2 --type string --set /desktop/gnome/interface/gtk_theme "Clearlooks"
 	gconftool-2 --type string --set /desktop/gnome/interface/icon_theme "elementary-monochrome"
 fi
